@@ -1,9 +1,15 @@
 from main import ma
+from marshmallow.validate import Length
+from marshmallow import fields
 
 
 class UserSchema(ma.Schema):
     class Meta:
-        fields = ('id', 'name', 'email', 'password', 'admin')
+        ordered = True
+        fields = ('id', 'name', 'email', 'password', 'admin', 'cards')
+        load_only = ('password', 'admin')
+    password = ma.String(validate=Length(min=6))
+    cards = fields.List(fields.Nested("CardSchema", exclude=("user",)))
 
 
 user_schema = UserSchema()

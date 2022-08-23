@@ -1,9 +1,13 @@
 from main import ma
+from marshmallow import fields
 
 # CREATE THE Card SCHEMA WITH MARSHMALLOW, IT WILL PROVIDE SERIALISATION
 class CardSchema(ma.Schema):
     class Meta:
-        fields = ('id', 'title', 'description', 'date', 'status', 'priority')
+        ordered = True
+        fields = ('id', 'title', 'description', 'date', 'status', 'priority', 'user', 'comments')
+    user = fields.Nested("UserSchema", only=("email",))
+    comments = fields.List(fields.Nested("CommentSchema"))
 
 
 # SINGLE CARD SCHEMA, WHEN ONE CARD NEEDS TO BE RETRIEVED

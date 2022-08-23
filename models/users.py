@@ -9,7 +9,12 @@ class User(db.Model):
     admin = db.Column(db.Boolean(), default=False)
     # DECLARE RELATIONSHIP WITH Card OBJECTS
     cards = db.relationship(
-                            "Card",
-                            backref="user",
-                            cascade="all, delete"
+        "Card",
+        backref="user",
+        cascade="all, delete"
+    )
+    comments = db.relationship(
+        "Comment",
+        backref="user",
+        cascade="all, delete"
     )

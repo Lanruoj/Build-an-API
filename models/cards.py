@@ -13,3 +13,9 @@ class Card(db.Model):
     priority = db.Column(db.String())
     # DECLARE user_id FOREIGN KEY COLUMN
     user_id = db.Column(db.Integer, db.ForeignKey("users.id"), nullable=False)
+    
+    comments = db.relationship(
+        "Comment",
+        backref="card",
+        cascade="all, delete"
+    )
